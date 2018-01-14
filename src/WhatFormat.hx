@@ -16,7 +16,7 @@ class WhatFormat
 	public var format(default, null):String;
 	public var description(default, null):String;
 	
-	var numbers:Array< Array<Int> >;
+	var numbers:Array< Array<Null<Int>> >;
 	var formats:Array<String>;
 	var descriptions:Array<String>;
 	
@@ -25,9 +25,9 @@ class WhatFormat
 		if (checkOnly == null) checkOnly = [for (m in Magic.Numbers) m[1]]; // ^~ `All`? ;)
 
 		// sort from readable Magic.Numbers into own array
-		numbers = new Array<Array<Null<Int>>>();
-		formats = new Array<String>();
-		descriptions = new Array<String>();
+		numbers = new Array();
+		formats = new Array();
+		descriptions = new Array();
 		
 		maxHeaderLength = 0;
 		for ( m in Magic.Numbers)
@@ -62,7 +62,7 @@ class WhatFormat
 		position = 0;
 		matchedIndices = [for(i in 0...numbers.length) i]; // All
 	}
-	
+
 	public inline function checkNextByte(byte:Int):Void
 	{
 		if (proceed) {
