@@ -65,3 +65,4 @@ Feel free to commit new formats that needs a `wtf-check`;)
 ## Todo
 
 - check subtypes (container-formats, streams)
+<!--- more formats to pick up on way ,) -> https://youtu.be/CWmqoEdjKR4?t=97 --->
