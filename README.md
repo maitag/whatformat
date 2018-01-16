@@ -41,7 +41,7 @@ if ( wtf.checkHeaderBytes(bytes).found ) trace('format: ${wtf.format} - ${wtf.de
 
 
 For streams or special purpose you can check format __while loading__,  
-to easy stop __loading__ if an unknown fileformat is detected:
+to easy __stop__ loading if no fileformat can be detected by header:
 
 ```
 var file:FileInput = File.read(filename);
@@ -66,7 +66,7 @@ file.close();
 
 
 
-You can check the ending of a filename anyway:
+You can also check the ending of a filename:
 
 ```
 if (wtf.checkFilenameEnding(filename).found) {
@@ -84,7 +84,7 @@ or combine both methods:
 var wtf:WhatFormat = new WhatFormat();
 
 // detect by filename
-if (wtf.checkFilenameEnding(filename).found) trace('format detected by filename ending:\n', wtf.byName);
+if (wtf.checkFilenameEnding(filename).byName.found) trace('format detected by filename ending:\n', wtf.byName);
 
 var input:Bytes;
 var cache:BytesOutput = new BytesOutput();
@@ -95,11 +95,12 @@ try {
 		byte = file.readByte();
 		cache.writeByte(byte);
 	}
-	while ( wtf.checkNextByte(byte) || wtf.found); // do not stop after proceed or something found
+	while ( wtf.checkNextByte(byte) || wtf.found); // do not stop if something found byName or byHeader
 }
 catch( ex:haxe.io.Eof ) {}
 file.close();
 
+// detect by header
 if (wtf.byHeader.found) trace('format detected by parsing header:\n', wtf.byHeader);
 
 if (wtf.found) { // found byHeader or byName
@@ -126,4 +127,4 @@ Feel free to commit new formats that needs a `wtf-check`;)
 ## Todo
 
 - check subtypes headers (container-formats, streams)
-- add more formats <!--- to pick up on the way ,) -> https://youtu.be/CWmqoEdjKR4?t=97 --->
+- add more formats
