@@ -114,20 +114,19 @@ if (wtf.found) {
 	trace('filesize: ${input.length}');
 
 	// if you not prefer the "header-first" autoselection method here,
-	// set the second parameter in instantiation of wtf to false -> wtf = new WhatFormat(null, false);
+	// set the second parameter in instantiation to false: wtf = new WhatFormat(null, false);
 	trace('format: ${wtf.format} - ${wtf.description}');
 	if (wtf.subtype != null) trace('subtype:${wtf.subtype} - ${wtf.subtypeDescription}');
 }
 else trace("can't detect fileformat");
 ```
 
-For another check with the __same instance__ of `wtf`  
-you can set the detected results to default values:
+For __another check__ with the __same instance__ of `wtf`,  
+in some cases you need to reset the detected results to defaults:
 ```
-wtf.byHeader.reset();// resets wtf.byHeader and get ready for wtf.checkNextByte()
-wtf.byName.reset(); // resets wtf.byName
+wtf.byHeader.reset();// resets wtf.byHeader values and get ready for another 'wtf.checkNextByte()'
+wtf.byName.reset(); // resets wtf.byName values
 wtf.reset();       // resets both
-// and do it again without instantiation
 ```
 
 
