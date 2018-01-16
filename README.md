@@ -17,7 +17,7 @@ haxelib git whatformat https://github.com/maitag/whatformat.git
 
 ## Documentation
 
-Start with an instance of WhatFormat:
+Start with an instance of __WhatFormat__:
 
 ```
 var wtf = new WhatFormat();
@@ -29,7 +29,7 @@ var wtf = new WhatFormat();
 
 
 
-To check the Bytes of a loaded File:
+To check the __Bytes__ in the __header__ of a loaded File:
 
 ```
 var bytes:Bytes = File.getBytes(filename);
@@ -40,7 +40,7 @@ if ( wtf.checkHeaderBytes(bytes).found ) trace('format: ${wtf.format} - ${wtf.de
 
 
 
-For streams or special purpose you can check format __while loading__,  
+For __streams__ or special purpose you can check format __while loading__,  
 to easy __stop__ loading if no fileformat can be detected by header:
 
 ```
@@ -66,7 +66,7 @@ file.close();
 
 
 
-You can also check the ending of a filename:
+You can also check the __ending__ of a __filename__:
 
 ```
 if (wtf.checkFilenameEnding(filename).found) {
@@ -78,7 +78,7 @@ if (wtf.checkFilenameEnding(filename).found) {
 
 
 
-or combine both methods:
+or __combine__ both methods:
 
 ```
 var wtf:WhatFormat = new WhatFormat();
@@ -108,23 +108,26 @@ if (wtf.byHeader.found) trace('format detected by parsing header:\n', wtf.byHead
 // if (wtf.byName.found) trace('format detected by filename - subtype:\n', wtf.byName.subtype);
 
 // detected by byHeader OR byName
-// if you not prefer header-check set second parameter of "new WhatFormat()" to false
 if (wtf.found) {
 	input = cache.getBytes();
 	trace('format of $filename found.');
 	trace('filesize: ${input.length}');
+
+	// if you not prefer the "header-first" autoselection method here,
+	// set the second parameter in instantiation of wtf to false -> wtf = new WhatFormat(null, false);
 	trace('format: ${wtf.format} - ${wtf.description}');
 	if (wtf.subtype != null) trace('subtype:${wtf.subtype} - ${wtf.subtypeDescription}');
 }
 else trace("can't detect fileformat");
 ```
 
-For another check with same instance of wtf  
+For another check with the __same instance__ of `wtf`  
 you can set the detected results to default values:
 ```
 wtf.byHeader.reset();// resets wtf.byHeader and get ready for wtf.checkNextByte()
 wtf.byName.reset(); // resets wtf.byName
 wtf.reset();       // resets both
+// and do it again without instantiation
 ```
 
 
