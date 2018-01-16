@@ -113,8 +113,14 @@ if (wtf.found) {
 	if (wtf.subtype != null) trace('subtype:${wtf.subtype} - ${wtf.subtypeDescription}');
 }
 else trace("can't detect fileformat");
+```
 
-wtf.reset(); // for another check with same instance
+For another check with same instance of wtf  
+you can reset the detected results to default values:
+```
+wtf.byHeader();    // resets wtf.byHeader and set defaults for wtf.checkNextByte()
+wtf.byNameReset(); // resets wtf.byName
+wtf.reset();       // resets both
 ```
 
 

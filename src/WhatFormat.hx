@@ -90,11 +90,22 @@ class WhatFormat
 
 	public inline function reset():Void
 	{
+		byHeaderReset();
+		byNameReset();
+	}
+	
+	public inline function byHeaderReset():Void
+	{
+		byHeader = new Result();
 		proceed = true;
 		foundAtPos = null;
 		position = 0;
-		byHeader = new Result();
 		matchedIndices = [for(i in 0...numbers.length) i]; // All
+	}
+
+	public inline function byNameReset():Void
+	{
+		byName = new Result();
 	}
 
 	public inline function checkNextByte(byte:Int):Bool
@@ -133,7 +144,7 @@ class WhatFormat
 	
 	public function checkHeaderBytes(bytes:Bytes):Result
 	{
-		byHeader = new Result();
+		if (position!=0) byHeaderReset();
 		var pos:Int = 0;
 		while (pos < bytes.length && checkNextByte(bytes.get(pos)))
 			pos++;
@@ -144,7 +155,7 @@ class WhatFormat
 	
 	public function checkFilenameEnding(filename:String):Result
 	{
-		byName = new Result();
+		byNameReset();
 		if (ending.match(filename))
 		{
 			var matched:String = ending.matched(1);
