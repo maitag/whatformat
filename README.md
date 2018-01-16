@@ -84,7 +84,8 @@ or combine both methods:
 var wtf:WhatFormat = new WhatFormat();
 
 // detect by filename
-if (wtf.checkFilenameEnding(filename).byName.found) trace('format detected by filename ending:\n', wtf.byName);
+if (wtf.checkFilenameEnding(filename).byName.found)
+	trace('format detected by filename ending:\n', wtf.byName);
 
 var input:Bytes;
 var cache:BytesOutput = new BytesOutput();
@@ -100,10 +101,11 @@ try {
 catch( ex:haxe.io.Eof ) {}
 file.close();
 
-// detect by header
+// detected by header
 if (wtf.byHeader.found) trace('format detected by parsing header:\n', wtf.byHeader);
 
-if (wtf.found) { // found byHeader or byName
+// detected by byHeader or byName
+if (wtf.found) {
 	input = cache.getBytes();
 	trace('format of $filename found.');
 	trace('filesize: ${input.length}');
