@@ -1,5 +1,5 @@
 # WhatFormat
-pure [haxe](https://haxe.org)-library to detect fileformat by [Magick Numbers](https://en.wikipedia.org/wiki/Magic_number_(programming)).  
+pure [haxe](https://haxe.org)-library to detect fileformat by [Magick Numbers](https://en.wikipedia.org/wiki/Magic_number_(programming)) or by filename.  
 
 
 ## Installation
