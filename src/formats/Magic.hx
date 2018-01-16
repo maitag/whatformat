@@ -9,10 +9,10 @@ package formats;
 
 class Magic
 {
+	// Formats that can be detected by parsing header
 	// translated from -> https://en.wikipedia.org/wiki/List_of_file_signatures
-	
 	static public var Numbers:Array<Array<String>> = [
-		// signature                            format  description
+		// header signature                     format  description
 		
 		// binary
 		['7F 45 4C 46',                         'elf',  'Executable and Linkable Format' ],
@@ -66,14 +66,14 @@ class Magic
 		['4D 54 68 64',                         'mid',  'MIDI sound file' ],
 		
 		// video
-		['00 00 01 BA',                         'mpg',  'MPEG Program Stream' ],
 		['00 00 01 B3',                         'mpg',  'MPEG-1 video and MPEG-2 video' ],
+		['00 00 01 BA',                         'mpg',  'MPEG Program Stream' ],
 		
 		// media
-		['4F 67 67 53',                         'ogg',  'Ogg, an open source media container format' ],
+		['4F 67 67 53',                         'ogg',  'Ogg Vorbis Codec compressed media container format' ],
 		['52 49 46 46 ?? ?? ?? ?? 41 56 49 20', 'avi',  'Audio Video Interleave video format' ],
-		['FF FB',                               'mp3',  'MPEG-1 Layer 3 file without an ID3 tag or with an ID3v1 tag' ],
 		['49 44 33',                            'mp3',  'MP3 file with an ID3v2 container' ],
+		['FF FB',                               'mp3',  'MPEG-1 Layer 3 file without an ID3 tag or with an ID3v1 tag' ],
 		['1A 45 DF A3',                         'mkv',  'Matroska media container, including WebM' ],
 		
 		// font                                       
@@ -88,16 +88,102 @@ class Magic
 		// feel free to add more
 	];
 	
-	static public var Endings = {
-		'zip': 'jar, odt, ods, odp, docx, xlsx, pptx, vsdx, apk, aar',
-		'jpg': 'jpeg',
-		'tif': 'tiff',
-		'bmp': 'dib',
-		'mpg': 'mpeg',
-		'mid': 'midi',
-		'doc': 'xls, ppt, msg',
-		'ogg': 'oga, ogv',
-		'mkv': 'mka, mks, mk3d, webm',
-	};
+	// general descriptions of Formats detected by Filename
+	static public var specialEndings:Array<Array<String>> = [
+		// format  description
+		['txt',  'ASCII Text Format' ],
+		['jpg',  'JPEG image format' ],
+		// feel free to add more
+	];
+	
+	// Subtypes of Formats detected by Filename
+	static public var Subtypes:Map<String, Array<Array<String>>> = [
+		// format
+		'txt' => [    // subtype, description
+			['md',  'Markdown Format' ],
+			['pl',  'Perl sourcecode' ],
+			['hx',  'Haxe sourcecode' ],
+			['c',   'C sourcecode' ],	
+			['cc',  'C++ sourcecode' ],	
+			['js',  'Javascript sourcecode' ],	
+		],
+		'ogg' => [
+			['oga', 'Ogg Vorbis audio'],
+			['ogv', 'Ogg Vorbis video'],
+			['ogx', 'Ogg Vorbis application'],
+		],
+		// TODO:
+		/*
+		'zip' => [
+			['jar', ''],
+			['aar', ''],
+			['apk', ''],
+			['odt', ''],
+			['ods', ''],
+			['odp', ''],
+			['docx',''],
+			['xlsx',''],
+			['pptx',''],
+			['vsdx',''],
+		],
+		'mkv' => [
+			['mka', ''],
+			['mks', ''],
+			['mk3d',''],
+			['webm',''],
+		]
+		'doc' => [
+			['xls', ''],
+			['ppt', '' ],
+			['msg', ''],
+		],
+		*/
+	];
+	
+	static public var Aliases:Map<String,Array<String>> = [
+		'cc'  => ['C', 'cpp', 'cxx'],
+		'oga' => ['spx'],
+		'jpg' => ['jpeg'],
+		'tif' => ['tiff'],
+		'bmp' => ['dib'],
+		'mpg' => ['mpeg'],
+		'mid' => ['midi'],
+	];
+	
+	static public function resolveFromSubtype(format:String):String {
+		for (fnew in Magic.Subtypes.keys()) {
+			for (subtype in Magic.Subtypes.get(fnew)) {
+				if (subtype[0] == format) return (fnew);
+			}
+		}
+		return format;
+	}
+	
+	static public function resolveFromAlias(format:String):String {
+		for (fnew in Magic.Aliases.keys()) {
+			for (alias in Magic.Aliases.get(fnew)) {
+				if (alias.toLowerCase() == alias) format = format.toLowerCase(); // for cc (Gnu C)
+				if (alias == format) {
+					return (fnew);
+				}
+			}
+		}
+		return format;
+	}
 
+	static public function getDescription(format:String):String {
+		for (m in Magic.specialEndings) if (m[0] == format) return m[1];
+		for (m in Magic.Numbers) if (m[1] == format) return m[2]; // if there is doubles -> return first
+		return null;
+	}
+	
+	static public function getSubtypeDescription(format:String):String {
+		for (fnew in Magic.Subtypes.keys()) {
+			for (subtype in Magic.Subtypes.get(fnew)) {
+				if (subtype[0] == format) return (subtype[1]);
+			}
+		}
+		return null;
+	}
+	
 }
