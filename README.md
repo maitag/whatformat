@@ -84,7 +84,7 @@ or combine both methods:
 var wtf:WhatFormat = new WhatFormat();
 
 // detect by filename
-if (wtf.checkFilenameEnding(filename).byName.found)
+if (wtf.checkFilenameEnding(filename).found)
 	trace('format detected by filename ending:\n', wtf.byName);
 
 var input:Bytes;
@@ -104,7 +104,11 @@ file.close();
 // detected by header
 if (wtf.byHeader.found) trace('format detected by parsing header:\n', wtf.byHeader);
 
-// detected by byHeader or byName
+// check again what filename-detection found
+// if (wtf.byName.found) trace('format detected by filename - subtype:\n', wtf.byName.subtype);
+
+// detected by byHeader OR byName
+// if you not prefer header-check set second parameter of "new WhatFormat()" to false
 if (wtf.found) {
 	input = cache.getBytes();
 	trace('format of $filename found.');
@@ -116,10 +120,10 @@ else trace("can't detect fileformat");
 ```
 
 For another check with same instance of wtf  
-you can reset the detected results to default values:
+you can set the detected results to default values:
 ```
-wtf.byHeader();    // resets wtf.byHeader and set defaults for wtf.checkNextByte()
-wtf.byNameReset(); // resets wtf.byName
+wtf.byHeader.reset();// resets wtf.byHeader and get ready for wtf.checkNextByte()
+wtf.byName.reset(); // resets wtf.byName
 wtf.reset();       // resets both
 ```
 

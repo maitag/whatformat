@@ -16,7 +16,8 @@ class Result {
 	var description:String;
 	var subtype:String;
 	var subtypeDescription:String;
-	function new() {}
+	var reset:Void->Void;
+	function new(reset) {this.reset = reset;}
 }
 
 class WhatFormat
@@ -94,18 +95,18 @@ class WhatFormat
 		byNameReset();
 	}
 	
-	public inline function byHeaderReset():Void
+	function byHeaderReset():Void
 	{
-		byHeader = new Result();
+		byHeader = new Result(byHeaderReset);
 		proceed = true;
 		foundAtPos = null;
 		position = 0;
 		matchedIndices = [for(i in 0...numbers.length) i]; // All
 	}
 
-	public inline function byNameReset():Void
+	function byNameReset():Void
 	{
-		byName = new Result();
+		byName = new Result(byNameReset);
 	}
 
 	public inline function checkNextByte(byte:Int):Bool
