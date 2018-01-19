@@ -134,8 +134,9 @@ wtf.reset();       // resets both
 ## Supported Formats
 
 Look here: [src/formats/Magic.hx](https://github.com/maitag/whatformat/blob/master/src/formats/Magic.hx)  
+or test out [Drag & Drop Sample](https://github.com/maitag/dragdrop) in your Webbrowser [--> here](http://maitag.de/semmi/haxelime/dragdrop).  
   
-Feel free to commit new formats that needs a `wtf-check`;)  
+Feel free to __commit__ new formats that needs a `wtf-check`;)  
 
 
 ## Todo
