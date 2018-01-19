@@ -22,6 +22,7 @@ class Magic
 		['46 57 53',                            'swf',  'Shockwave Flash' ],
 		
 		// document
+		['42 4C 45 4E 44 45 52',                'blend','Blender document' ],
 		['7B 5C 72 74 66 31',                   'rtf',  'Rich Text Format' ],
 		['38 42 50 53',                         'psd',  'Adobe Photoshop document' ],
 		['25 21 50 53',                         'ps',   'PostScript document' ],
