@@ -1,13 +1,14 @@
 package;
 
-import formats.Magic;
-import haxe.io.Bytes;
 /**
- * ...
  * by Sylvio Sell - Rostock 2018
  * 
- * detect fileformat by magic number
+ * detects fileformat by magic number or by filename-ending
+ * 
  */
+
+import haxe.io.Bytes;
+import formats.Magic;
 
 @:publicFields
 class Result {
@@ -41,8 +42,8 @@ class WhatFormat
 	public var subtypeDescription(get, null):String;
 	inline function get_subtypeDescription():String return select(byHeader.subtypeDescription, byName.subtypeDescription);
 	
-	var preferHeader:Bool;
-	function select(h:String, n:String):String {
+	private var preferHeader:Bool;
+	private function select(h:String, n:String):String {
 		return (preferHeader && h != null) ? h : ((n != null) ? n:h);
 	}
 	
@@ -50,11 +51,11 @@ class WhatFormat
 	public var byHeader(default, null):Result;
 	public var byName(default, null):Result;
 	
-	var numbers:Array< Array<Null<Int>> >;
-	var formats:Array<String>;
-	var descriptions:Array<String>;
+	private var numbers:Array< Array<Null<Int>> >;
+	private var formats:Array<String>;
+	private var descriptions:Array<String>;
 	
-	public function new(?checkOnly:Array<String> = null, ?preferHeader=true)
+	public function new(checkOnly:Array<String> = null, preferHeader:Bool = true)
 	{
 		this.preferHeader = preferHeader;
 		this.checkOnly = checkOnly;
@@ -85,9 +86,9 @@ class WhatFormat
 
 	// --------------------------------------------------------------------------
 	
-	var position:Int; // check byte at position
-	var foundAtPos:Null<Int>;
-	var matchedIndices:Array<Int>; // holds possible indices for checkNextByte
+	private var position:Int; // check byte at position
+	private var foundAtPos:Null<Int>;
+	private var matchedIndices:Array<Int>; // holds possible indices for checkNextByte
 
 	public inline function reset():Void
 	{
@@ -95,7 +96,7 @@ class WhatFormat
 		byNameReset();
 	}
 	
-	function byHeaderReset():Void
+	private function byHeaderReset():Void
 	{
 		byHeader = new Result(byHeaderReset);
 		proceed = true;
@@ -104,7 +105,7 @@ class WhatFormat
 		matchedIndices = [for(i in 0...numbers.length) i]; // All
 	}
 
-	function byNameReset():Void
+	private function byNameReset():Void
 	{
 		byName = new Result(byNameReset);
 	}
