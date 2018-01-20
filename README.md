@@ -3,12 +3,12 @@ pure [haxe](https://haxe.org)-library to detect fileformat by [Magick Numbers](h
 
 
 ## Installation
-<!---
+
 ```
 haxelib install whatformat
 ```
 
-or use the latest developement version from github:--->
+or use the latest developement version from github:  
 ```
 haxelib git whatformat https://github.com/maitag/whatformat.git
 ```
@@ -133,7 +133,7 @@ wtf.reset();       // resets both
 
 ## Supported Formats
 
-Look here: [src/formats/Magic.hx](https://github.com/maitag/whatformat/blob/master/src/formats/Magic.hx)  
+Look here: [src/formats/Magic.hx](https://github.com/maitag/whatformat/blob/master/src/formats/Magic.hx) 
 or test out [Drag & Drop Sample](https://github.com/maitag/dragdrop) in your Webbrowser [--> here](http://maitag.de/semmi/haxelime/dragdrop).  
   
 Feel free to __commit__ new formats that needs a `wtf-check`;)  
@@ -141,5 +141,5 @@ Feel free to __commit__ new formats that needs a `wtf-check`;)
 
 ## Todo
 
-- check subtypes headers (container-formats, streams)
 - add more formats
+- check subtypes headers (container-formats, streams)
