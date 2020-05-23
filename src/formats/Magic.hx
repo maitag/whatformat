@@ -20,6 +20,8 @@ class Magic
 		['6d 73 61 00',                         'wasm', 'WebAssembly binary format' ],
 		['43 57 53',                            'swf',  'Shockwave Flash' ],
 		['46 57 53',                            'swf',  'Shockwave Flash' ],
+		['49 57 41 44',                         'wad',  'Internal WAD' ],
+		['50 57 41 44',                         'wad',  'Patch WAD' ],
 		
 		// document
 		['42 4C 45 4E 44 45 52',                'blend','Blender document' ],
